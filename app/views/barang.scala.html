@@ -1,0 +1,27 @@
+@(barangBarang: List[models.daotransaksi.DBTableDefinitions.Barang])
+
+@main("Listing barang") {
+    <div class="container">
+        <h1>barang: @barangBarang.length </h1>
+        <a href="@routes.BarangController.tambah()" class="btn btn-primary">Tambah Barang</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID Barang</th>
+                    <th>Nama Barang</th>
+                    <th>Harga</th>
+                </tr>
+            </thead>
+            <tbody>
+            @for(barang <- barangBarang) {
+                <tr>
+                    <td>@barang.idbarang</td>
+                    <td>@barang.nabarang</td>
+                    <td>@barang.habarang</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}
+

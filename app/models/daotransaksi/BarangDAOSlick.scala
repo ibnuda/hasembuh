@@ -47,4 +47,10 @@ class BarangDAOSlick extends BarangDAO {
 			}
 		}
 	}
+
+	def all = {
+		DB withSession { implicit session =>
+			slickBarang.sortBy(_.idbarang.asc.nullsFirst).list
+		}
+	}
 }

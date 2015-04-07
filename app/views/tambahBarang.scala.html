@@ -1,0 +1,19 @@
+@(barangForm: Form[models.daotransaksi.DBTableDefinitions.Barang])
+
+@import helper._
+
+@main("Add a new User") {
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <h1>Add a new User</h1>
+      @form(routes.BarangController.simpan()) {
+        @inputText(barangForm("namaBarang"))
+        @inputText(barangForm("hargaBarang"))
+        <button type="submit" class="btn btn-primary">Save</button>
+      }
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+
+}

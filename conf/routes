@@ -4,6 +4,9 @@
 
 # Home page
 GET         /                                @controllers.ApplicationController.index
+GET         /barang                          @controllers.BarangController.index
+GET         /barang/tambah                   @controllers.BarangController.tambah
+POST        /barang                          @controllers.BarangController.simpan
 GET         /signIn                          @controllers.ApplicationController.signIn
 GET         /signUp                          @controllers.ApplicationController.signUp
 GET         /signOut                         @controllers.ApplicationController.signOut

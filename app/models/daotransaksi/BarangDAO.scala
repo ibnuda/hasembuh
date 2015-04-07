@@ -1,6 +1,6 @@
 package models.daotransaksi
 
-import models.daotransaksi.DBTableDefinitions.Barang
+import models.daotransaksi.DBTableDefinitions._
 
 import scala.concurrent.Future
 
@@ -11,4 +11,6 @@ trait BarangDAO {
 
 	//def findHarga(harga: Int): Future[Option[Barang]]
 	def save(barang: Barang): Future[Barang]
+
+	def all(): List[Barang]
 }
