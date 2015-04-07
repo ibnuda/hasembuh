@@ -1,6 +1,6 @@
-@(barangBarang: List[models.daotransaksi.DBTableDefinitions.Barang])
+@(barangBarang: List[models.daotransaksi.DBTableDefinitions.Barang], user: models.User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
 
-@main("Listing barang") {
+@main("Listing barang", Some(user)) {
     <div class="container">
         <h1>barang: @barangBarang.length </h1>
         <a href="@routes.BarangController.tambah()" class="btn btn-primary">Tambah Barang</a>

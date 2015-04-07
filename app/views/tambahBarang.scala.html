@@ -1,8 +1,8 @@
-@(barangForm: Form[models.daotransaksi.DBTableDefinitions.Barang])
+@(barangForm: Form[models.daotransaksi.DBTableDefinitions.Barang], user: models.User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
 
 @import helper._
 
-@main("Add a new User") {
+@main("Add a new User", Some(user)) {
   <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">

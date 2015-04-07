@@ -15,8 +15,8 @@
         <link rel="stylesheet" href="@routes.Assets.at("styles/main.css")">
             <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
             <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+            <!--script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script-->
+            <!--script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script-->
             <![endif]-->
     </head>
     <body>
@@ -29,17 +29,21 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="@routes.ApplicationController.index">Silhouette Seed Template</a>
+                    <a class="navbar-brand" href="@routes.ApplicationController.index">Tugas tugasan</a>
                 </div>
                 <nav class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="@routes.ApplicationController.index">Home</a></li>
-                        <li><a href="https://github.com/mohiva/play-silhouette-seed">GitHub</a></li>
+                        @user.map { u =>
+                            <li><a href="@routes.BarangController.index()">Daftar Barang</a></li>
+                        }.getOrElse {
+                            <li><a href="http://www.google.com">Google</a></li>
+                        }
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                    @user.map { u =>
-                    <li><a href="@routes.ApplicationController.index">@u.userID</a></li>
-                    <li><a href="@routes.ApplicationController.signOut">Sign Out</a></li>
+                    @user.map { x =>
+                        <li><a href="@routes.ApplicationController.index">@x.username</a></li>
+                        <li><a href="@routes.ApplicationController.signOut">Sign Out</a></li>
                     }.getOrElse {
                         <li><a href="@routes.ApplicationController.signIn">Sign In</a></li>
                         <li><a href="@routes.ApplicationController.signUp">Sign Up</a></li>

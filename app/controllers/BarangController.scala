@@ -7,7 +7,6 @@ import com.mohiva.play.silhouette.impl.authenticators.SessionAuthenticator
 import forms.BarangForm
 import models.User
 import models.daotransaksi.BarangDAOSlick
-import models.daotransaksi.DBTableDefinitions.Barang
 
 import scala.concurrent.Future
 
@@ -17,7 +16,7 @@ class BarangController @Inject()(
 	extends Silhouette[User, SessionAuthenticator] {
 
 	def index = SecuredAction.async { implicit request =>
-		Future.successful(Ok(views.html.barang(barangdaoslick.all)))
+		Future.successful(Ok(views.html.barang(barangdaoslick.all, request.identity)))
 	}
 
 	def simpan = SecuredAction.async { implicit request =>
@@ -27,6 +26,6 @@ class BarangController @Inject()(
 	}
 
 	def tambah() = SecuredAction { implicit request =>
-		Ok(views.html.tambahBarang(BarangForm.form))
+		Ok(views.html.tambahBarang(BarangForm.form, request.identity))
 	}
 }
