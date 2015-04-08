@@ -9,7 +9,7 @@ object DBTableDefinitions {
 
 	case class Barang(idbarang: Int, nabarang: String, habarang: Int)
 
-	case class Transaksi(no: Int, idTrans: Int, idBarang: Int)
+	case class Transaksi(no: Int, idtrans: Int, idbarang: Int)
 
 	class DBBarang(tag: Tag) extends Table[Barang](tag, "barang") {
 		def * = (idbarang, nabarang, habarang) <>(Barang.tupled, Barang.unapply)

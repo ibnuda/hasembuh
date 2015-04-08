@@ -1,0 +1,33 @@
+@(transaksiForm: Form[models.daotransaksi.DBTableDefinitions.Transaksi],
+    barang: models.daotransaksi.BarangDAOSlick,
+    user: User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _],
+request: RequestHeader)
+
+@import helper._
+
+@main("Tambah Transaksi", Some(user)) {
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h1>Tambah Transaksi</h1>
+            @form(routes.TransaksiController.simpan(), args = ('id -> "topkek")) {
+                <dl id="no_field" class=" ">
+                    <dd>
+                        <input type="hidden" value="" name="no" id="no">
+                    </dd>
+                </dl>
+                @inputText(transaksiForm("idtransaksi"))
+                @select(
+                    transaksiForm("barangbarang"),
+                    barang.allNama.map { b =>
+                      b._1.toString -> b._2
+                    },
+                    '_label -> "pilih barang"
+                )
+                <button type="submit" class="btn btn-primary">Save</button>
+            }
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+}

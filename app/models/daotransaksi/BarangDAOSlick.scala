@@ -53,4 +53,10 @@ class BarangDAOSlick extends BarangDAO {
 			slickBarang.sortBy(_.idbarang.asc.nullsFirst).list
 		}
 	}
+
+	def allNama = {
+		DB withSession { implicit session =>
+			slickBarang.map(b => (b.idbarang, b.nabarang)).list
+		}
+	}
 }

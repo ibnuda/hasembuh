@@ -13,4 +13,5 @@ trait BarangDAO {
 	def save(barang: Barang): Future[Barang]
 
 	def all(): List[Barang]
+	def allNama(): List[(Int, String)]
 }

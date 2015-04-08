@@ -1,0 +1,26 @@
+@(transaksiPlusNama: List[(Int, Int, String)], user: models.User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
+
+@main("Listing Transaksi", Some(user)) {
+  <div class="container">
+    <h1>barang: @transaksiPlusNama.length </h1>
+    <a href="@routes.TransaksiController.tambah()" class="btn btn-primary">Tambah Transaksi</a>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>No Transaksi</th>
+          <th>ID Transaksi</th>
+          <th>Barang</th>
+        </tr>
+      </thead>
+      <tbody>
+      @for(transaksi <- transaksiPlusNama) {
+        <tr>
+          <td>@transaksi._1</td>
+          <td>@transaksi._2</td>
+          <td>@transaksi._3</td>
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+}
