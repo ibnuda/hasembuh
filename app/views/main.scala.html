@@ -36,6 +36,7 @@
                         @user.map { u =>
                             <li><a href="@routes.BarangController.index()">Daftar Barang</a></li>
                             <li><a href="@routes.TransaksiController.index()">Daftar Transaksi</a></li>
+                            <li><a href="@routes.AprioriController.index()">Apriori</a></li>
                         }.getOrElse {
                             <li><a href="http://www.google.com">Google</a></li>
                         }

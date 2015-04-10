@@ -10,6 +10,8 @@ POST        /barang                          @controllers.BarangController.simpa
 GET         /transaksi                       @controllers.TransaksiController.index
 GET         /transaksi/tambah                @controllers.TransaksiController.tambah
 POST        /transaksi                       @controllers.TransaksiController.simpan
+GET         /apriori                         @controllers.AprioriController.index
+
 GET         /signIn                          @controllers.ApplicationController.signIn
 GET         /signUp                          @controllers.ApplicationController.signUp
 GET         /signOut                         @controllers.ApplicationController.signOut

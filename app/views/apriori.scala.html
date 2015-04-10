@@ -1,0 +1,24 @@
+@(daftarTransaksi: List[List[Int]], user: models.User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
+
+@main("Koleksi", Some(user)) {
+  <div class="container">
+    <h1>transaksi: @daftarTransaksi.length </h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID Barang</th>
+          <th>Kejadian Pembelian</th>
+        </tr>
+      </thead>
+      <tbody>
+      @for(transaksi <- daftarTransaksi) {
+        <tr>
+          @for(transak <- transaksi){
+            <td>@transak.toString</td>
+          }
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+}

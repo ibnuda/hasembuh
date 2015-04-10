@@ -59,4 +59,10 @@ class TransaksiDAOSlick extends TransaksiDAO {
 			implisitJoin.list
 		}
 	}
+
+	def allIDBarangTransaksi = {
+		DB withSession { implicit session =>
+			slickTransak.map(_.idbarang).list
+		}
+	}
 }
