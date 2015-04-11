@@ -1,6 +1,6 @@
 package apriori
 
-import models.DataItemset
+import models.daotransaksi.DBTableDefinitions.SetBarang
 import models.daotransaksi.TransaksiDAOSlick
 import models.daotransaksi.SetBarangDAOSlick
 import play.api.db.slick.Config.driver.simple._
@@ -22,10 +22,10 @@ class Apriori extends TraitApriori {
 		List(List(1, 2, 3))
 	}
 
-	def koleksi1: List[DataItemset] = { //List[(List[Int], Int, Int)] = {
+	def koleksi1: List[SetBarang] = { //List[(List[Int], Int, Int)] = {
 		val daftar: List[Int] = transaksi.allIDBarangTransaksi.sorted
 		val daftarKoleksi = {
-			for (daf <- daftar) yield DataItemset(List(daf), 1, daftar.count(_ == daf))
+			for (daf <- daftar) yield SetBarang(List(daf), 1, daftar.count(_ == daf))
 		}
 		daftarKoleksi.distinct
 	}

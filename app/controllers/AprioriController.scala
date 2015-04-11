@@ -16,10 +16,11 @@ class AprioriController @Inject()(implicit val env: Environment[User, SessionAut
 	val apriori = new Apriori
 	val setbarang = new SetBarangDAOSlick
 
-	def index = SecuredAction{ implicit request =>
+	def index = SecuredAction { implicit request =>
 		// TODO : menampilkan daftar barang di transaksi dan jumlahnya.
 		apriori.resetTabel
 		val listBarang = apriori.koleksi1
+		setbarang.save(listBarang)
 		Ok(views.html.apriori(listBarang, request.identity))
 	}
 }

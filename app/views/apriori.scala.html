@@ -1,4 +1,4 @@
-@(daftarTransaksi: List[models.DataItemset], user: models.User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
+@(daftarTransaksi: List[models.daotransaksi.DBTableDefinitions.SetBarang], user: models.User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
 
 @main("Koleksi", Some(user)) {
   <div class="container">
@@ -14,7 +14,7 @@
       <tbody>
       @for(transaksi <- daftarTransaksi) {
         <tr>
-          <td>{ @transaksi.itemset }</td>
+          <td>{ @transaksi.daftar }</td>
           <td>@transaksi.koleksi</td>
           <td>@transaksi.support</td>
         </tr>

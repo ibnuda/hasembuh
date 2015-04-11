@@ -30,7 +30,7 @@ class SetBarangDAOSlick extends SetBarangDAO {
 	def save(setBarang: SetBarang) = {
 		DB withSession { implicit session =>
 			Future.successful {
-				val setbarang = SetBarang(setBarang.no, setBarang.daftar, setBarang.koleksi, setBarang.support)
+				val setbarang = SetBarang(setBarang.daftar, setBarang.koleksi, setBarang.support)
 				slickSetBarang.insert(setbarang)
 				setbarang
 			}

@@ -14,9 +14,9 @@ object DBTableDefinitions {
 
 	case class Transaksi(no: Int, idtrans: Int, idbarang: Int)
 
-	case class SetBarang(no :Int, daftar: List[Int], koleksi: Int, support: Int)
+	case class SetBarang(daftar: List[Int], koleksi: Int, support: Int)
 
-	case class AsosRule(no: Int, daftar: List[Int], rule: Map[String, String])
+	case class AsosRule(daftar: List[Int], rule: Map[String, String])
 
 	class DBBarang(tag: Tag) extends Table[Barang](tag, "barang") {
 		def * = (idbarang, nabarang, habarang) <>(Barang.tupled, Barang.unapply)
@@ -41,17 +41,15 @@ object DBTableDefinitions {
 	}
 
 	class DBSetBarang(tag: Tag) extends Table[SetBarang](tag, "itemset"){
-		def no = column[Int]("no", O.AutoInc, O.PrimaryKey)
 		def daftar = column[List[Int]]("daftar")
 		def koleksi = column[Int]("koleksi")
 		def support = column[Int]("support")
-		def * = (no, daftar, koleksi, support) <> (SetBarang.tupled, SetBarang.unapply)
+		def * = (daftar, koleksi, support) <> (SetBarang.tupled, SetBarang.unapply)
 	}
 
 	class DBAsosRule(tag: Tag) extends Table[AsosRule](tag, "asosrule"){
-		def no = column[Int]("no", O.AutoInc, O.PrimaryKey)
 		def daftar = column[List[Int]]("daftar")
 		def rule = column[Map[String, String]]("rule")
-		def * = (no, daftar, rule) <> (AsosRule.tupled, AsosRule.unapply)
+		def * = (daftar, rule) <> (AsosRule.tupled, AsosRule.unapply)
 	}
 }
