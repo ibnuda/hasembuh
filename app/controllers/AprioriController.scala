@@ -6,18 +6,20 @@ import apriori.Apriori
 import com.mohiva.play.silhouette.api.{Silhouette, Environment}
 import com.mohiva.play.silhouette.impl.authenticators.SessionAuthenticator
 import models.User
+import models.daotransaksi.SetBarangDAOSlick
 
 import scala.concurrent.Future
 
 class AprioriController @Inject()(implicit val env: Environment[User, SessionAuthenticator])
 	extends Silhouette[User, SessionAuthenticator] {
 
-	def apriori = new Apriori
+	val apriori = new Apriori
+	val setbarang = new SetBarangDAOSlick
 
-	def index = SecuredAction.async { implicit request =>
+	def index = SecuredAction{ implicit request =>
 		// TODO : menampilkan daftar barang di transaksi dan jumlahnya.
-		Future.successful(
-			Ok(views.html.apriori(apriori.koleksi1, request.identity))
-		)
+		apriori.resetTabel
+		val listBarang = apriori.koleksi1
+		Ok(views.html.apriori(listBarang, request.identity))
 	}
 }

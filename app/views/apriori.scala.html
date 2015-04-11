@@ -1,4 +1,4 @@
-@(daftarTransaksi: List[List[Int]], user: models.User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
+@(daftarTransaksi: List[models.DataItemset], user: models.User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
 
 @main("Koleksi", Some(user)) {
   <div class="container">
@@ -6,16 +6,17 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>ID Barang</th>
+          <th>Set Barang</th>
+          <th>Tingkat Koleksi</th>
           <th>Kejadian Pembelian</th>
         </tr>
       </thead>
       <tbody>
       @for(transaksi <- daftarTransaksi) {
         <tr>
-          @for(transak <- transaksi){
-            <td>@transak.toString</td>
-          }
+          <td>{ @transaksi.itemset }</td>
+          <td>@transaksi.koleksi</td>
+          <td>@transaksi.support</td>
         </tr>
       }
       </tbody>
