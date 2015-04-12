@@ -1,6 +1,6 @@
-package models.daotransaksi
+package models.daoapriori
 
-import models.daotransaksi.DBTableDefinitions.SetBarang
+import models.daoapriori.DBTableDefinitions.SetBarang
 
 import scala.concurrent.Future
 

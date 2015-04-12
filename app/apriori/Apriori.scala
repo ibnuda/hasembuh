@@ -1,28 +1,15 @@
 package apriori
 
-import models.daotransaksi.DBTableDefinitions.SetBarang
-import models.daotransaksi.TransaksiDAOSlick
-import models.daotransaksi.SetBarangDAOSlick
-import play.api.db.slick.Config.driver.simple._
+import models.daoapriori.DBTableDefinitions.SetBarang
+import models.daoapriori.TransaksiDAOSlick
+import models.daoapriori.SetBarangDAOSlick
 
-class Apriori extends TraitApriori {
+class Apriori {
 
 	val transaksi = new TransaksiDAOSlick
 	val setBarang = new SetBarangDAOSlick
 
-	def minimumSupport: Int = 2
-
-	def minimumKonfidensi: Double = 0.4
-
-	def daftarBarang: List[List[Int]] = {
-		List(List(1, 2, 3))
-	}
-
-	def pruneBarang: List[List[Int]] = {
-		List(List(1, 2, 3))
-	}
-
-	def koleksi1: List[SetBarang] = { //List[(List[Int], Int, Int)] = {
+	def koleksi1: List[SetBarang] = {
 		val daftar: List[Int] = transaksi.allIDBarangTransaksi.sorted
 		val daftarKoleksi = {
 			for (daf <- daftar) yield SetBarang(List(daf), 1, daftar.count(_ == daf))

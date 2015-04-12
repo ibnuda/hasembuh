@@ -6,8 +6,8 @@ import com.mohiva.play.silhouette.api.{Silhouette, Environment}
 import com.mohiva.play.silhouette.impl.authenticators.SessionAuthenticator
 import forms.TransaksiForm
 import models.User
-import models.daotransaksi.TransaksiDAOSlick
-import models.daotransaksi.BarangDAOSlick
+import models.daoapriori.TransaksiDAOSlick
+import models.daoapriori.BarangDAOSlick
 
 import scala.concurrent.Future
 

@@ -1,0 +1,26 @@
+@(supkon: List[models.daoapriori.DBTableDefinitions.SupKon], user: models.User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
+
+@main("Support & Konfidensi", Some(user)) {
+    <div class="container">
+        <h1>barang: @supkon.length </h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Support</th>
+                    <th>Konfidensi</th>
+                    <th>Hapus</th>
+                </tr>
+            </thead>
+            <tbody>
+            @for(sup <- supkon) {
+                <tr>
+                    <td>@sup.support</td>
+                    <td>@sup.konfidensi</td>
+                    <td>@helper.form(routes.ApplicationController.deleteSupKon(sup.support)){<button class="btn btn-danger" type="submit">Hapus</button>}</td>
+
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}

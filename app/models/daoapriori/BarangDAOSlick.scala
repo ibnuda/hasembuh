@@ -1,6 +1,6 @@
-package models.daotransaksi
+package models.daoapriori
 
-import models.daotransaksi.DBTableDefinitions._
+import models.daoapriori.DBTableDefinitions._
 import play.api.db.slick.Config.driver.simple._
 import play.api.db.slick._
 
@@ -31,8 +31,6 @@ class BarangDAOSlick extends BarangDAO {
 			}
 		}
 	}
-
-	//def findHarga(harga: Int)
 
 	def save(barang: Barang) = {
 		DB withSession { implicit session =>

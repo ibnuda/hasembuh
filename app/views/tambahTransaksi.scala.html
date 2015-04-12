@@ -1,7 +1,4 @@
-@(transaksiForm: Form[models.daotransaksi.DBTableDefinitions.Transaksi],
-    barang: models.daotransaksi.BarangDAOSlick,
-    user: User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _],
-request: RequestHeader)
+@(transaksiForm: Form[models.daoapriori.DBTableDefinitions.Transaksi], barang: models.daoapriori.BarangDAOSlick, user: User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
 
 @import helper._
 

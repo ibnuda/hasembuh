@@ -4,6 +4,11 @@
 
 # Home page
 GET         /                                @controllers.ApplicationController.index
+POST        /                                @controllers.ApplicationController.simpanSupKon
+GET         /supkon/:id                       @controllers.ApplicationController.deleteSupKon(id: Int)
+GET         /supkon                          @controllers.ApplicationController.tambahSupKon
+#POST        /                                @controllers.ApplicationController.simpanEdit
+#GET         /edit                            @controllers.ApplicationController.editSupKon
 GET         /barang                          @controllers.BarangController.index
 GET         /barang/tambah                   @controllers.BarangController.tambah
 POST        /barang                          @controllers.BarangController.simpan
@@ -11,7 +16,6 @@ GET         /transaksi                       @controllers.TransaksiController.in
 GET         /transaksi/tambah                @controllers.TransaksiController.tambah
 POST        /transaksi                       @controllers.TransaksiController.simpan
 GET         /apriori                         @controllers.AprioriController.index
-
 GET         /signIn                          @controllers.ApplicationController.signIn
 GET         /signUp                          @controllers.ApplicationController.signUp
 GET         /signOut                         @controllers.ApplicationController.signOut

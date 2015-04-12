@@ -1,4 +1,4 @@
-package models.daotransaksi
+package models.daoapriori
 
 import play.api.db.slick.DB
 import models.MyPostgresDriver.simple._
@@ -9,6 +9,7 @@ object DBTableDefinitions {
 	val slickTransak = TableQuery[DBTransaksi]
 	val slickSetBarang = TableQuery[DBSetBarang]
 	val slickAsosRule = TableQuery[DBAsosRule]
+	val slickSupKon = TableQuery[DBSupKon]
 
 	case class Barang(idbarang: Int, nabarang: String, habarang: Int)
 
@@ -17,6 +18,8 @@ object DBTableDefinitions {
 	case class SetBarang(daftar: List[Int], koleksi: Int, support: Int)
 
 	case class AsosRule(daftar: List[Int], rule: Map[String, String])
+
+	case class SupKon(id: Int, support: Int, konfidensi: Double)
 
 	class DBBarang(tag: Tag) extends Table[Barang](tag, "barang") {
 		def * = (idbarang, nabarang, habarang) <>(Barang.tupled, Barang.unapply)
@@ -51,5 +54,12 @@ object DBTableDefinitions {
 		def daftar = column[List[Int]]("daftar")
 		def rule = column[Map[String, String]]("rule")
 		def * = (daftar, rule) <> (AsosRule.tupled, AsosRule.unapply)
+	}
+
+	class DBSupKon(tag: Tag) extends Table[SupKon](tag, "supkon"){
+		def id = column[Int]("id")
+		def support = column[Int]("support")
+		def konfidensi = column[Double]("konfidensi")
+		def * = (id, support, konfidensi) <> (SupKon.tupled, SupKon.unapply)
 	}
 }

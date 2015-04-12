@@ -1,0 +1,19 @@
+@(supKonForm: Form[models.daoapriori.DBTableDefinitions.SupKon], user: models.User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
+
+@import helper._
+
+@main("Atur Support & Konfidensi", Some(user)) {
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h1>Support & Konfidensi</h1>
+            @form(routes.ApplicationController.simpanSupKon) {
+                @inputText(supKonForm("support"))
+                @inputText(supKonForm("konfidensi"))
+                <button type="submit" class="btn btn-primary">Save</button>
+            }
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+}

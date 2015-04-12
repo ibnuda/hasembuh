@@ -1,7 +1,7 @@
-package models.daotransaksi
+package models.daoapriori
 
 import models.MyPostgresDriver.simple._
-import models.daotransaksi.DBTableDefinitions._
+import models.daoapriori.DBTableDefinitions._
 import play.api.db.slick._
 
 import scala.concurrent.Future
@@ -9,6 +9,7 @@ import scala.concurrent.Future
 class SetBarangDAOSlick extends SetBarangDAO {
 
 	import play.api.Play.current
+	val supKonDAOSlick = new SupKonDAOSlick
 
 	def find(listBarang: List[Int]) = {
 		DB withSession { implicit session =>
@@ -49,6 +50,13 @@ class SetBarangDAOSlick extends SetBarangDAO {
 	def reset = {
 		DB withSession { implicit session =>
 			slickSetBarang.delete
+		}
+	}
+
+	def prune(koleksi: Int) = {
+		DB withTransaction { implicit session =>
+			val minimumSupport: Int = supKonDAOSlick.minimumSupport
+			slickSetBarang.filter(_.support < minimumSupport).filter(_.koleksi === koleksi).delete
 		}
 	}
 }

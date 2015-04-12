@@ -1,6 +1,6 @@
 package forms
 
-import models.daotransaksi.DBTableDefinitions.Barang
+import models.daoapriori.DBTableDefinitions.Barang
 import play.api.data.Form
 import play.api.data.Forms._
 

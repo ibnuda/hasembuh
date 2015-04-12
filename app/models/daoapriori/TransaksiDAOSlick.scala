@@ -1,7 +1,7 @@
-package models.daotransaksi
+package models.daoapriori
 
 import play.api.db.slick.Config.driver.simple._
-import models.daotransaksi.DBTableDefinitions._
+import models.daoapriori.DBTableDefinitions._
 import play.api.db.slick._
 
 import scala.concurrent.Future
@@ -35,8 +35,6 @@ class TransaksiDAOSlick extends TransaksiDAO {
 	def save(transaksi: Transaksi) = {
 		DB withSession { implicit session =>
 			Future.successful {
-				//val panjang = slickTransak.length + 1
-				//val tran = (slickTransak returning slickTransak.map(_.no)) += Transaksi(None, transaksi.idtrans, transaksi.idbarang)
 				val tran = Transaksi(transaksi.no , transaksi.idtrans, transaksi.idbarang)
 				slickTransak.insert(tran)
 				tran

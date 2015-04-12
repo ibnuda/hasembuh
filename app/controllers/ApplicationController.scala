@@ -8,6 +8,7 @@ import forms._
 import models.User
 
 import scala.concurrent.Future
+import models.daoapriori.SupKonDAOSlick
 
 /**
  * The basic application controller.
@@ -17,20 +18,42 @@ import scala.concurrent.Future
 class ApplicationController @Inject()(implicit val env: Environment[User, SessionAuthenticator])
 	extends Silhouette[User, SessionAuthenticator] {
 
+	val supKonDAOSlick = new SupKonDAOSlick
+
 	/**
 	 * Handles the index action.
 	 *
 	 * @return The result to display.
-	 */
 	def index = SecuredAction.async { implicit request =>
 		Future.successful(Ok(views.html.home(request.identity)))
 	}
-
-	/**
-	 * Handles the Sign In action.
-	 *
-	 * @return The result to display.
 	 */
+
+	def index = SecuredAction { implicit request =>
+		val panjang = supKonDAOSlick.panjang
+		println(panjang)
+		if (panjang > 0) {
+			Ok(views.html.supKon(supKonDAOSlick.all, request.identity))
+		} else {
+			Redirect(routes.ApplicationController.tambahSupKon)
+		}
+	}
+
+	def tambahSupKon = SecuredAction { implicit request =>
+		Ok(views.html.aturSupKon(SupKonForm.form, request.identity))
+	}
+
+	def simpanSupKon = SecuredAction { implicit request =>
+		val nilaiSupKon = SupKonForm.form.bindFromRequest.get
+		supKonDAOSlick.save(nilaiSupKon)
+		Ok(views.html.supKon(supKonDAOSlick.all, request.identity))
+	}
+
+	def deleteSupKon(sup: Int) = SecuredAction { implicit request =>
+		supKonDAOSlick.delete(sup)
+		Redirect(routes.ApplicationController.index)
+	}
+
 	def signIn = UserAwareAction.async { implicit request =>
 		request.identity match {
 			case Some(user) => Future.successful(Redirect(routes.ApplicationController.index()))
@@ -38,11 +61,6 @@ class ApplicationController @Inject()(implicit val env: Environment[User, Sessio
 		}
 	}
 
-	/**
-	 * Handles the Sign Up action.
-	 *
-	 * @return The result to display.
-	 */
 	def signUp = UserAwareAction.async { implicit request =>
 		request.identity match {
 			case Some(user) => Future.successful(Redirect(routes.ApplicationController.index()))
@@ -50,15 +68,11 @@ class ApplicationController @Inject()(implicit val env: Environment[User, Sessio
 		}
 	}
 
-	/**
-	 * Handles the Sign Out action.
-	 *
-	 * @return The result to display.
-	 */
 	def signOut = SecuredAction.async { implicit request =>
 		val result = Future.successful(Redirect(routes.ApplicationController.index()))
 		env.eventBus.publish(LogoutEvent(request.identity, request, request2lang))
 
 		request.authenticator.discard(result)
 	}
+
 }
