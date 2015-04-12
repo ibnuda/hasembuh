@@ -47,6 +47,13 @@ class SetBarangDAOSlick extends SetBarangDAO {
 		}
 	}
 
+	def lihatKoleksi(koleksi: Int): List[SetBarang] = {
+		DB withSession { implicit session =>
+			prune(koleksi)
+			slickSetBarang.filter(_.koleksi === koleksi).list
+		}
+	}
+
 	def reset = {
 		DB withSession { implicit session =>
 			slickSetBarang.delete

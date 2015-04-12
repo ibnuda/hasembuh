@@ -18,8 +18,9 @@ class AprioriController @Inject()(implicit val env: Environment[User, SessionAut
 
 	def index = SecuredAction { implicit request =>
 		apriori.resetTabel
-		val listBarang = apriori.koleksi1
-		setbarang.save(listBarang)
-		Ok(views.html.apriori(listBarang, request.identity))
+		setbarang.save(apriori.koleksi1)
+		apriori.prune(1)
+		val listDua = setbarang.lihatKoleksi(1)
+		Ok(views.html.apriori(listDua, request.identity))
 	}
 }

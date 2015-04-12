@@ -9,6 +9,10 @@ class Apriori {
 	val transaksi = new TransaksiDAOSlick
 	val setBarang = new SetBarangDAOSlick
 
+	def resetTabel = {
+		setBarang.reset
+	}
+
 	def koleksi1: List[SetBarang] = {
 		val daftar: List[Int] = transaksi.allIDBarangTransaksi.sorted
 		val daftarKoleksi = {
@@ -17,7 +21,7 @@ class Apriori {
 		daftarKoleksi.distinct
 	}
 
-	def resetTabel = {
-		setBarang.reset
+	def prune(koleksi: Int) = {
+		setBarang.prune(koleksi)
 	}
 }

@@ -9,4 +9,5 @@ trait SetBarangDAO {
 	def findByKoleksi(koleksi: Int): Future[Option[List[SetBarang]]]
 	def save(setBarang: SetBarang): Future[SetBarang]
 	def save(listSetBarang: List[SetBarang]): Future[List[SetBarang]]
+	def lihatKoleksi(koleksi: Int): List[SetBarang]
 }
