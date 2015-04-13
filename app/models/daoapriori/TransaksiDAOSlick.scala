@@ -12,22 +12,18 @@ class TransaksiDAOSlick extends TransaksiDAO {
 
 	def find(id: Int) = {
 		DB withSession { implicit session =>
-			Future.successful {
-				slickTransak.filter(_.idtrans === id).firstOption match {
-					case Some(tran) => Some(Transaksi(tran.no, tran.idtrans, tran.idbarang))
-					case None => None
-				}
+			slickTransak.filter(_.idtrans === id).firstOption match {
+				case Some(tran) => Some(Transaksi(tran.no, tran.idtrans, tran.idbarang))
+				case None => None
 			}
 		}
 	}
 
 	def find(id: Int, idbarang: Int) = {
 		DB withSession { implicit session =>
-			Future.successful {
-				slickTransak.filter(x => x.idtrans === id && x.idbarang === idbarang).firstOption match {
-					case Some(tran) => Some(Transaksi(tran.no, tran.idtrans, tran.idbarang))
-					case None => None
-				}
+			slickTransak.filter(x => x.idtrans === id && x.idbarang === idbarang).firstOption match {
+				case Some(tran) => Some(Transaksi(tran.no, tran.idtrans, tran.idbarang))
+				case None => None
 			}
 		}
 	}
@@ -62,5 +58,18 @@ class TransaksiDAOSlick extends TransaksiDAO {
 		DB withSession { implicit session =>
 			slickTransak.map(_.idbarang).list
 		}
+	}
+
+	def findListBarang(id: Int): List[Int] = {
+		DB withSession { implicit session =>
+			//val daftarnya = slickTransak.filter(_.idbarang === id).map(_.idbarang).list
+			val daftar = slickTransak.filter(_.idbarang === id).map(_.idtrans).list
+			daftar
+		}
+	}
+
+	def findByList(list: List[Int]): Int = {
+		val listListInt = for (li <- list) yield findListBarang(li)
+		listListInt.reduceLeft(_ intersect _).length
 	}
 }

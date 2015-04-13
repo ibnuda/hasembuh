@@ -1,34 +1,21 @@
-Silhouette Seed Template
+HASEMBUH: TUGAS AKHIR
 =====================================
 
-The Silhouette Seed project is an Activator template which shows how [Silhouette](https://github.com/mohiva/play-silhouette) can be implemented in a Play Framework application. It's a starting point which can be extended to fit your needs.
+## Introduction
 
-## Example
+This is a final project for my study. Sort kind of Apriori Algorithm (Agrawal, 1994) implementation .
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+## System Req.
 
-(The "Build App" phase will take a few minutes)
+* Play! Framework 2.3.x (Scala)
+* PostgreSQL
 
-Or you can find a running example of this template under the following URL: https://play-silhouette-seed.herokuapp.com/
+## Libraries
 
-## Features
+* Silhouette ( _Authentication and Authorization_ )
+* Webjars ( _JQuery, Bootstrap, and Stuffs_ )
+* Slick and Extensions ( _Database Query and Access_ )
 
-* Sign Up
-* Sign In (Credentials)
-* Social Auth (Facebook, Google+, VK, Twitter, Xing, Yahoo)
-* Two-factor authentication with Clef
-* Dependency Injection with Guice
-* Publishing Events
-* Avatar service
-
-## Documentation
-
-Consulate the [Silhouette documentation](http://silhouette.mohiva.com/docs) for more information. If you need help with the integration of Silhouette into your project, don't hesitate and ask questions in our [mailing list](https://groups.google.com/forum/#!forum/play-silhouette) or on [Stack Overflow](http://stackoverflow.com/questions/tagged/playframework).
-
-## Activator
-
-See https://typesafe.com/activator/template/play-silhouette-seed
-
-# License
+## License
 
 The code is licensed under [Apache License v2.0](http://www.apache.org/licenses/LICENSE-2.0).

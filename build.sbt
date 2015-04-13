@@ -50,3 +50,6 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
 	.setPreference(FormatXml, false)
 	.setPreference(DoubleIndentClassDeclaration, false)
 	.setPreference(PreserveDanglingCloseParenthesis, true)
+
+
+//fork in run := true

@@ -9,7 +9,7 @@ class SupKonDAOSlick extends SupKonDAO {
 
 	import play.api.Play.current
 
-	def minimumSupport = {
+	def minimumSupport: Int = {
 		DB withSession { implicit session =>
 			slickSupKon.map(_.support).first
 		}
@@ -22,13 +22,13 @@ class SupKonDAOSlick extends SupKonDAO {
 		}
 	}
 
-	def panjang = {
+	def panjang: Int = {
 		DB withSession { implicit session =>
 			slickSupKon.length.run
 		}
 	}
 
-	def all = {
+	def all: List[SupKon] = {
 		DB withSession { implicit session =>
 			slickSupKon.sortBy(_.support).list
 		}

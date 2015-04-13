@@ -23,4 +23,10 @@ class AprioriController @Inject()(implicit val env: Environment[User, SessionAut
 		val listDua = setbarang.lihatKoleksi(1)
 		Ok(views.html.apriori(listDua, request.identity))
 	}
+
+	def itemset(koleksi: Int) = SecuredAction { implicit request =>
+		setbarang.save(apriori.koleksiN(koleksi))
+		Ok(views.html.apriori(apriori.koleksiN(koleksi), request.identity))
+	}
+
 }
