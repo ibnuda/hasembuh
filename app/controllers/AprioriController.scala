@@ -21,12 +21,17 @@ class AprioriController @Inject()(implicit val env: Environment[User, SessionAut
 		setbarang.save(apriori.koleksi1)
 		apriori.prune(1)
 		val listDua = setbarang.lihatKoleksi(1)
-		Ok(views.html.apriori(listDua, request.identity))
+		Ok(views.html.aprior(listDua, request.identity))
 	}
 
 	def itemset(koleksi: Int) = SecuredAction { implicit request =>
 		setbarang.save(apriori.koleksiN(koleksi))
-		Ok(views.html.apriori(apriori.koleksiN(koleksi), request.identity))
+		Ok(views.html.aprior(apriori.koleksiN(koleksi), request.identity))
+	}
+
+	def asosrule = SecuredAction { implicit request =>
+		val rulenya = apriori.hitungRuleList(apriori.daftarUntukRule)
+		Ok(views.html.rule(rulenya, request.identity))
 	}
 
 }

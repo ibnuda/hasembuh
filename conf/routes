@@ -17,6 +17,7 @@ GET         /transaksi/tambah                @controllers.TransaksiController.ta
 POST        /transaksi                       @controllers.TransaksiController.simpan
 GET         /apriori                         @controllers.AprioriController.index
 GET         /apriori/:koleksi                @controllers.AprioriController.itemset(koleksi: Int)
+GET         /rule                            @controllers.AprioriController.asosrule
 GET         /signIn                          @controllers.ApplicationController.signIn
 GET         /signUp                          @controllers.ApplicationController.signUp
 GET         /signOut                         @controllers.ApplicationController.signOut

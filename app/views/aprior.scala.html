@@ -6,7 +6,7 @@
     @if(daftarKoleksi.length > 0){
       <a href="@routes.AprioriController.itemset(daftarKoleksi.head.koleksi + 1)">Lanjut Sini</a>
     }else{
-      <a href="@routes.ApplicationController.index()">TO BE ADDED (GENERATING ASSOCIATION RULE)</a>
+      <a href="@routes.AprioriController.asosrule">Generate Rule</a>
     }
     <table class="table table-striped">
       <thead>

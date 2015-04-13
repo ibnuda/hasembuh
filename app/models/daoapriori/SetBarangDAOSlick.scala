@@ -1,8 +1,8 @@
 package models.daoapriori
 
-import models.MyPostgresDriver.simple._
 import models.daoapriori.DBTableDefinitions._
 import play.api.db.slick._
+import models.MyPostgresDriver.simple._
 
 import scala.concurrent.Future
 
@@ -11,14 +11,19 @@ class SetBarangDAOSlick extends SetBarangDAO {
 	import play.api.Play.current
 	val supKonDAOSlick = new SupKonDAOSlick
 
-	def find(listBarang: List[Int]) = {
+	def find(listBarang: List[Int]): Option[SetBarang] = {
 		DB withSession { implicit session =>
-			Future.successful {
-				slickSetBarang.filter(_.daftar === listBarang).firstOption match {
-					case Some(daftar) => Some(daftar)
-					case None => None
-				}
+			slickSetBarang.filter(_.daftar === listBarang).firstOption match {
+				case Some(daftar) => Some(daftar)
+				case None => None
 			}
+		}
+	}
+
+	def findSupport(listBarang: List[Int]): Int = {
+		DB withSession { implicit session =>
+			val support = slickSetBarang.filter(_.daftar === listBarang).map(_.support).first.run
+			support
 		}
 	}
 
@@ -76,4 +81,24 @@ class SetBarangDAOSlick extends SetBarangDAO {
 			setBarangN.distinct
 		}
 	}
+
+	def koleksiFinal: Int = {
+		DB withSession { implicit session =>
+			slickSetBarang.map(_.koleksi).sortBy(_.desc).first
+		}
+	}
+
+	def isJamak: Boolean = {
+		DB withSession { implicit session =>
+			val jamak = slickSetBarang.map(_.koleksi).list.distinct
+			jamak.length > 1
+		}
+	}
+
+	def isAda(daftar: List[Int]): Boolean = {
+		DB withSession { implicit session =>
+			slickSetBarang.filter(_.daftar === daftar).exists.run
+		}
+	}
+
 }

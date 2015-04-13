@@ -8,7 +8,7 @@ This is a final project for my study. Sort kind of Apriori Algorithm (Agrawal, 1
 ## System Req.
 
 * Play! Framework 2.3.x (Scala)
-* PostgreSQL
+* PostgreSQL (don't forget to use hstore extension via `CREATE EXTENSION hstore` in your database)
 
 ## Libraries
 

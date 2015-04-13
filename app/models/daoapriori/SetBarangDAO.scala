@@ -5,7 +5,7 @@ import models.daoapriori.DBTableDefinitions.SetBarang
 import scala.concurrent.Future
 
 trait SetBarangDAO {
-	def find(list: List[Int]): Future[Option[SetBarang]]
+	def find(list: List[Int]): Option[SetBarang]
 	def findByKoleksi(koleksi: Int): List[SetBarang]
 	def save(setBarang: SetBarang): Future[SetBarang]
 	def save(listSetBarang: List[SetBarang]): Future[List[SetBarang]]

@@ -1,0 +1,27 @@
+@(daftarRule: List[List[models.DataRule.Akhir]], user: models.User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
+
+@main("Rule", Some(user)) {
+  <div class="container">
+    <h1>Lx: @daftarRule.length </h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Set ini</th>
+          <th>Terhadap ini</th>
+          <th>Konfidensi</th>
+        </tr>
+      </thead>
+      <tbody>
+      @for(rule <- daftarRule) {
+        @for(rul <- rule){
+          <tr>
+            <td>( @rul.besar )</td>
+            <td>( @rul.kecil )</td>
+            <td>@rul.konfidensi</td>
+          </tr>
+        }
+      }
+      </tbody>
+    </table>
+  </div>
+}
