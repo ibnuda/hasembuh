@@ -3,6 +3,11 @@
 @main("Koleksi", Some(user)) {
   <div class="container">
     <h1>Lx: @daftarKoleksi.length </h1>
+    @if(daftarKoleksi.length > 0){
+      <a href="@routes.AprioriController.itemset(daftarKoleksi.head.koleksi + 1)">Lanjut Sini</a>
+    }else{
+      <a href="@routes.ApplicationController.index()">TO BE ADDED (GENERATING ASSOCIATION RULE)</a>
+    }
     <table class="table table-striped">
       <thead>
         <tr>
