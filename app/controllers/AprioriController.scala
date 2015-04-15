@@ -31,7 +31,11 @@ class AprioriController @Inject()(implicit val env: Environment[User, SessionAut
 
 	def asosrule = SecuredAction { implicit request =>
 		val rulenya = apriori.hitungRuleList(apriori.daftarUntukRule)
-		Ok(views.html.rule(rulenya, request.identity))
+		if (rulenya.length > 0){
+			Ok(views.html.rule(rulenya, request.identity))
+		} else {
+			Ok(views.html.home(request.identity))
+		}
 	}
 
 }

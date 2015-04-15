@@ -22,8 +22,20 @@ class SetBarangDAOSlick extends SetBarangDAO {
 
 	def findSupport(listBarang: List[Int]): Int = {
 		DB withSession { implicit session =>
-			val support = slickSetBarang.filter(_.daftar === listBarang).map(_.support).first.run
-			support
+			try {
+				slickSetBarang.filter(_.daftar === listBarang).map(_.support).first.run
+			} catch {
+				case e: Exception => 1
+			}
+			/*
+			val kek = if (listBarang.isEmpty){
+				1
+			} else {
+				slickSetBarang.filter(_.daftar === listBarang).map(_.support).first.run
+			}
+			//val kek = slickSetBarang.filter(_.daftar === listBarang).map(_.support).first.run
+			kek
+			*/
 		}
 	}
 
@@ -34,7 +46,7 @@ class SetBarangDAOSlick extends SetBarangDAO {
 	}
 
 	def save(setBarang: SetBarang) = {
-		DB withSession { implicit session =>
+		DB withTransaction { implicit session =>
 			Future.successful {
 				val setbarang = SetBarang(setBarang.daftar, setBarang.koleksi, setBarang.support)
 				slickSetBarang.insert(setbarang)
@@ -44,7 +56,7 @@ class SetBarangDAOSlick extends SetBarangDAO {
 	}
 
 	def save(listSetBarang: List[SetBarang]) = {
-		DB withSession { implicit session =>
+		DB withTransaction { implicit session =>
 			Future.successful {
 				for (setBarang <- listSetBarang) save(setBarang)
 				listSetBarang

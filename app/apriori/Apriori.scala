@@ -35,7 +35,7 @@ class Apriori {
 	}
 
 	def generateKoleksi(n: Int, koleksiNMinusSatu: List[List[Int]]): List[List[Int]] = {
-		val hasilKoleksiN = koleksiNMinusSatu.flatten.distinct.combinations(n).toList
+		val hasilKoleksiN = koleksiNMinusSatu.flatten.sorted.distinct.combinations(n).toList
 		if (n <= 2){
 			hasilKoleksiN.distinct
 		} else {
