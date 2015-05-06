@@ -1,0 +1,7 @@
+@(user: models.User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
+
+@helper.form(action = routes.ApplicationController.simpanUpload, 'enctype -> "multipart/form-data"){
+    <input type="file" name="eksel"/>
+    <p><input type="submit"/></p>
+}
+

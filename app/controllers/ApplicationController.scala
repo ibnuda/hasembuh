@@ -2,34 +2,23 @@ package controllers
 
 import javax.inject.Inject
 
+import apriori.ExIm
 import com.mohiva.play.silhouette.api.{Environment, LogoutEvent, Silhouette}
 import com.mohiva.play.silhouette.impl.authenticators.SessionAuthenticator
 import forms._
 import models.User
+import play.api.libs.Files.TemporaryFile
+import play.api.mvc.{AnyContent, MultipartFormData, Action}
 
 import scala.concurrent.Future
 import models.daoapriori.SupKonDAOSlick
 
-/**
- * The basic application controller.
- *
- * @param env The Silhouette environment.
- */
 class ApplicationController @Inject()(implicit val env: Environment[User, SessionAuthenticator])
 	extends Silhouette[User, SessionAuthenticator] {
 
 	val supKonDAOSlick = new SupKonDAOSlick
 
-	/**
-	 * Handles the index action.
-	 *
-	 * @return The result to display.
-	def index = SecuredAction.async { implicit request =>
-		Future.successful(Ok(views.html.home(request.identity)))
-	}
-	 */
-
-	def index = SecuredAction { implicit request =>
+	def index: Action[AnyContent] = SecuredAction { implicit request =>
 		val panjang = supKonDAOSlick.panjang
 		println(panjang)
 		if (panjang > 0) {
@@ -39,40 +28,57 @@ class ApplicationController @Inject()(implicit val env: Environment[User, Sessio
 		}
 	}
 
-	def tambahSupKon = SecuredAction { implicit request =>
+	def tambahSupKon: Action[AnyContent] = SecuredAction { implicit request =>
 		Ok(views.html.aturSupKon(SupKonForm.form, request.identity))
 	}
 
-	def simpanSupKon = SecuredAction { implicit request =>
+	def simpanSupKon: Action[AnyContent] = SecuredAction { implicit request =>
 		val nilaiSupKon = SupKonForm.form.bindFromRequest.get
 		supKonDAOSlick.save(nilaiSupKon)
 		Ok(views.html.supKon(supKonDAOSlick.all, request.identity))
 	}
 
-	def deleteSupKon(sup: Int) = SecuredAction { implicit request =>
+	def deleteSupKon(sup: Int): Action[AnyContent] = SecuredAction { implicit request =>
 		supKonDAOSlick.delete(sup)
 		Redirect(routes.ApplicationController.index)
 	}
 
-	def signIn = UserAwareAction.async { implicit request =>
+	def signIn: Action[AnyContent] = UserAwareAction.async { implicit request =>
 		request.identity match {
 			case Some(user) => Future.successful(Redirect(routes.ApplicationController.index()))
 			case None => Future.successful(Ok(views.html.signIn(SignInForm.form)))
 		}
 	}
 
-	def signUp = UserAwareAction.async { implicit request =>
+	def signUp: Action[AnyContent] = UserAwareAction.async { implicit request =>
 		request.identity match {
 			case Some(user) => Future.successful(Redirect(routes.ApplicationController.index()))
 			case None => Future.successful(Ok(views.html.signUp(SignUpForm.form)))
 		}
 	}
 
-	def signOut = SecuredAction.async { implicit request =>
+	def signOut: Action[AnyContent] = SecuredAction.async { implicit request =>
 		val result = Future.successful(Redirect(routes.ApplicationController.index()))
 		env.eventBus.publish(LogoutEvent(request.identity, request, request2lang))
 
 		request.authenticator.discard(result)
 	}
 
+	def formUpload(): Action[AnyContent] = SecuredAction { implicit request =>
+		Ok(views.html.formUpload(request.identity))
+	}
+
+	def simpanUpload(): Action[MultipartFormData[TemporaryFile]] = SecuredAction(parse.multipartFormData) { implicit request =>
+		request.body.file("eksel").map { eksel =>
+			import java.io.File
+			val namaFile = eksel.filename
+			val tipeKonten = eksel.contentType
+			eksel.ref.moveTo(new File(s"/tmp/$namaFile"))
+			ExIm.importExcel(namaFile)
+			Ok("berkas terunggah")
+		}.getOrElse{
+			println("gagal unggah")
+			Redirect(routes.ApplicationController.formUpload())
+		}
+	}
 }

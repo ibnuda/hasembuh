@@ -22,6 +22,9 @@ libraryDependencies ++= Seq(
 	"com.mohiva" %% "play-silhouette-testkit" % "2.0-RC2" % "test",
 	"org.postgresql" % "postgresql" % "9.3-1102-jdbc4",
   "com.github.tminglei" %% "slick-pg" % "0.8.2",
+  "org.apache.poi" % "poi" % "3.10.1",
+  "org.apache.poi" % "poi-ooxml" % "3.10.1",
+	"info.folone" %% "poi-scala" % "0.14",
 	cache
 )
 
