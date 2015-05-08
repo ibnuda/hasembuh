@@ -75,7 +75,8 @@ class ApplicationController @Inject()(implicit val env: Environment[User, Sessio
 			val tipeKonten = eksel.contentType
 			eksel.ref.moveTo(new File(s"/tmp/$namaFile"))
 			ExIm.importExcel(namaFile)
-			Ok("berkas terunggah")
+			Ok(views.html.home(request.identity))
+			//Ok("berkas terunggah")
 		}.getOrElse{
 			println("gagal unggah")
 			Redirect(routes.ApplicationController.formUpload())

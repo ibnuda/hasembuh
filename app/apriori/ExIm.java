@@ -29,9 +29,9 @@ public class ExIm {
             while (cells.hasNext()){
                 cell = (XSSFCell) cells.next();
                 if (cell.getCellType() == XSSFCell.CELL_TYPE_STRING)
-                    System.out.println(cell.getStringCellValue());
+                    System.out.print(cell.getStringCellValue() + " ");
                 else if (cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC)
-                    System.out.println(cell.getNumericCellValue());
+                    System.out.print(cell.getNumericCellValue() + " ");
             }
             System.out.println();
         }

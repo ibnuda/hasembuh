@@ -34,8 +34,9 @@
                 <nav class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         @user.map { u =>
-                            <li><a href="@routes.BarangController.index()">Daftar Barang</a></li>
-                            <li><a href="@routes.TransaksiController.index()">Daftar Transaksi</a></li>
+                            <li><a href="@routes.BarangController.index()">Barang</a></li>
+                            <li><a href="@routes.TransaksiController.index()">Transaksi</a></li>
+                            <li><a href="@routes.ApplicationController.formUpload()">Upload Data</a></li>
                             <li><a href="@routes.AprioriController.index()">Apriori</a></li>
                         }.getOrElse {
                             <li><a href="http://www.google.com">Google</a></li>
