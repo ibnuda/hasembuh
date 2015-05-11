@@ -7,6 +7,9 @@ resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/release
 // The Sonatype snapshots repository
 resolvers += "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
 
+// Spray HTTP
+resolvers += "spray repo" at "http://repo.spray.io"
+
 // Use the Play sbt plugin for Play projects
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.8")
 

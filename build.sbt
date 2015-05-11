@@ -24,10 +24,6 @@ libraryDependencies ++= Seq(
   "com.github.tminglei" %% "slick-pg" % "0.8.2",
   "org.apache.poi" % "poi" % "3.10.1",
   "org.apache.poi" % "poi-ooxml" % "3.10.1",
-  "org.scalaz" %% "scalaz-core" % "7.1.0",
-  "org.scalaz" %% "scalaz-effect" % "7.1.0",
-  "org.scalaz" %% "scalaz-scalacheck-binding" % "7.1.0" % "test",
-//	"info.folone" %% "poi-scala" % "0.14",
 	cache
 )
 

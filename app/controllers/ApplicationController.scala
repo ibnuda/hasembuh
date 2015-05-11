@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject.Inject
 
-import apriori.ExIm
+import apriori.Eksel
 import com.mohiva.play.silhouette.api.{Environment, LogoutEvent, Silhouette}
 import com.mohiva.play.silhouette.impl.authenticators.SessionAuthenticator
 import forms._
@@ -71,12 +71,11 @@ class ApplicationController @Inject()(implicit val env: Environment[User, Sessio
 	def simpanUpload(): Action[MultipartFormData[TemporaryFile]] = SecuredAction(parse.multipartFormData) { implicit request =>
 		request.body.file("eksel").map { eksel =>
 			import java.io.File
+			val anu = new Eksel
 			val namaFile = eksel.filename
-			val tipeKonten = eksel.contentType
 			eksel.ref.moveTo(new File(s"/tmp/$namaFile"))
-			ExIm.importExcel(namaFile)
+			anu.loadDariBerkas(new File(s"/tmp/$namaFile"))
 			Ok(views.html.home(request.identity))
-			//Ok("berkas terunggah")
 		}.getOrElse{
 			println("gagal unggah")
 			Redirect(routes.ApplicationController.formUpload())
