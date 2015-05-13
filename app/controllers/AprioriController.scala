@@ -31,15 +31,8 @@ class AprioriController @Inject()(implicit val env: Environment[User, SessionAut
 	def itemset(koleksi: Int) = SecuredAction { implicit request =>
     val simpan: List[SetBarang] = apriori.koleksiN(koleksi)
 		slickSetBarang.save(simpan)
-    /*
-    val tampilkan = for {
-      kuda <- simpan
-      sb <- slickBarang.listNamaBarang(kuda.daftar)
-    } yield Tampilkan(List(sb), kuda.koleksi, kuda.support)
-    */
     val tampilkan = apriori.tampilkanTampilan(simpan)
     Ok(views.html.aprior(tampilkan, request.identity))
-//		Ok(views.html.aprior(apriori.koleksiN(koleksi), request.identity))
 	}
 
 	def asosrule = SecuredAction { implicit request =>

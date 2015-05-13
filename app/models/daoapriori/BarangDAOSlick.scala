@@ -10,7 +10,7 @@ class BarangDAOSlick extends BarangDAO {
 
 	import play.api.Play.current
 
-	def find(id: Int) = {
+	def find(id: Int): Future[Option[Barang]] = {
 		DB withSession { implicit session =>
 			Future.successful {
 				slickBarang.filter(_.idbarang === id).firstOption match {
@@ -62,16 +62,14 @@ class BarangDAOSlick extends BarangDAO {
 		DB withSession { implicit session =>
 			val namaBarang: String = slickBarang.filter(_.idbarang === id).firstOption match {
 				case Some(barang) => barang.nabarang
-					case _ => "Tidak Ada"
+        case _ => "Tidak Ada"
 			}
 			namaBarang
 		}
 	}
 
-	def listNamaBarang(listID: List[Int]): List[String] = {
-		DB withSession { implicit session =>
-			val listBarang: List[String] = for (id <- listID) yield(namaBarang(id))
-			listBarang
-		}
+	def listNamaBarang(listID: List[Int]): String = {
+    val listNama = for (id <- listID) yield(namaBarang(id))
+		listNama.mkString(", ")
 	}
 }

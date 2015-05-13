@@ -91,7 +91,6 @@ class Apriori {
 	}
 
 	def tampilkanTampilan(daftarSetBarang: List[SetBarang]): List[Tampilkan] = {
-		val ini: List[Tampilkan] = daftarSetBarang.map(x => Tampilkan(slickBarang.listNamaBarang(x.daftar), x.koleksi, x.support))
-		ini
+		daftarSetBarang.map(x => Tampilkan(slickBarang.listNamaBarang(x.daftar), x.koleksi, x.support))
 	}
 }

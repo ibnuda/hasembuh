@@ -10,7 +10,7 @@ class TransaksiDAOSlick extends TransaksiDAO {
 
 	import play.api.Play.current
 
-	def find(id: Int) = {
+	def find(id: Int): Option[Transaksi] = {
 		DB withSession { implicit session =>
 			slickTransak.filter(_.idtrans === id).firstOption match {
 				case Some(tran) => Some(Transaksi(tran.no, tran.idtrans, tran.idbarang))
@@ -19,7 +19,7 @@ class TransaksiDAOSlick extends TransaksiDAO {
 		}
 	}
 
-	def find(id: Int, idbarang: Int) = {
+	def find(id: Int, idbarang: Int): Option[Transaksi] = {
 		DB withSession { implicit session =>
 			slickTransak.filter(x => x.idtrans === id && x.idbarang === idbarang).firstOption match {
 				case Some(tran) => Some(Transaksi(tran.no, tran.idtrans, tran.idbarang))
@@ -28,7 +28,7 @@ class TransaksiDAOSlick extends TransaksiDAO {
 		}
 	}
 
-	def save(transaksi: Transaksi) = {
+	def save(transaksi: Transaksi): Future[Transaksi] = {
 		DB withTransaction { implicit session =>
 			Future.successful {
 				val tran = Transaksi(transaksi.no , transaksi.idtrans, transaksi.idbarang)
@@ -47,13 +47,13 @@ class TransaksiDAOSlick extends TransaksiDAO {
 		}
 	}
 
-	def all = {
+	def all: List[DBTransaksi#TableElementType] = {
 		DB withSession { implicit session =>
 			slickTransak.sortBy(_.no.asc.nullsLast).list
 		}
 	}
 
-	def allPlusNama = {
+	def allPlusNama: List[(Int, Int, String)] = {
 		DB withSession { implicit session =>
 			val implisitJoin = for {
 				transaksi <- slickTransak
@@ -63,7 +63,7 @@ class TransaksiDAOSlick extends TransaksiDAO {
 		}
 	}
 
-	def allIDBarangTransaksi = {
+	def allIDBarangTransaksi: List[Int] = {
 		DB withSession { implicit session =>
 			slickTransak.map(_.idbarang).list
 		}
