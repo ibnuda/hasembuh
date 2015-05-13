@@ -29,11 +29,20 @@ class TransaksiDAOSlick extends TransaksiDAO {
 	}
 
 	def save(transaksi: Transaksi) = {
-		DB withSession { implicit session =>
+		DB withTransaction { implicit session =>
 			Future.successful {
 				val tran = Transaksi(transaksi.no , transaksi.idtrans, transaksi.idbarang)
 				slickTransak.insert(tran)
 				tran
+			}
+		}
+	}
+
+	def save(listTransaksi: List[Transaksi]): Future[List[Transaksi]] = {
+		DB withTransaction { implicit session =>
+			Future.successful {
+				for (transaksi <- listTransaksi) save(transaksi)
+				listTransaksi
 			}
 		}
 	}

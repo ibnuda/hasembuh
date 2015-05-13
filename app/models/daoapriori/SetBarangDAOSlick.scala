@@ -27,15 +27,6 @@ class SetBarangDAOSlick extends SetBarangDAO {
 			} catch {
 				case e: Exception => 1
 			}
-			/*
-			val kek = if (listBarang.isEmpty){
-				1
-			} else {
-				slickSetBarang.filter(_.daftar === listBarang).map(_.support).first.run
-			}
-			//val kek = slickSetBarang.filter(_.daftar === listBarang).map(_.support).first.run
-			kek
-			*/
 		}
 	}
 
@@ -67,7 +58,7 @@ class SetBarangDAOSlick extends SetBarangDAO {
 	def lihatKoleksi(koleksi: Int): List[SetBarang] = {
 		DB withSession { implicit session =>
 			prune(koleksi)
-			slickSetBarang.filter(_.koleksi === koleksi).list
+			slickSetBarang.filter(_.koleksi === koleksi).sortBy(_.daftar).list
 		}
 	}
 

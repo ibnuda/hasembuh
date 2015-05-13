@@ -21,7 +21,7 @@ class BarangDAOSlick extends BarangDAO {
 		}
 	}
 
-	def find(nama: String) = {
+	def find(nama: String): Future[Option[Barang]] = {
 		DB withSession { implicit session =>
 			Future.successful {
 				slickBarang.filter(_.nabarang === nama).firstOption match {
@@ -55,6 +55,23 @@ class BarangDAOSlick extends BarangDAO {
 	def allNama = {
 		DB withSession { implicit session =>
 			slickBarang.map(b => (b.idbarang, b.nabarang)).list
+		}
+	}
+
+	def namaBarang(id: Int): String = {
+		DB withSession { implicit session =>
+			val namaBarang: String = slickBarang.filter(_.idbarang === id).firstOption match {
+				case Some(barang) => barang.nabarang
+					case _ => "Tidak Ada"
+			}
+			namaBarang
+		}
+	}
+
+	def listNamaBarang(listID: List[Int]): List[String] = {
+		DB withSession { implicit session =>
+			val listBarang: List[String] = for (id <- listID) yield(namaBarang(id))
+			listBarang
 		}
 	}
 }

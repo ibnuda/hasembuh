@@ -1,4 +1,5 @@
-@(daftarKoleksi: List[models.daoapriori.DBTableDefinitions.SetBarang], user: models.User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
+@(daftarKoleksi: List[models.DataRule.Tampilkan], user: models.User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
+@import models.DataRule.Tampilkan
 
 @main("Koleksi", Some(user)) {
   <div class="container">
@@ -19,7 +20,7 @@
       <tbody>
       @for(transaksi <- daftarKoleksi) {
         <tr>
-          <td>{ @transaksi.daftar }</td>
+          <td>( @transaksi.daftar )</td>
           <td>@transaksi.koleksi</td>
           <td>@transaksi.support</td>
         </tr>

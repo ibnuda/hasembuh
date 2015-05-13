@@ -121,6 +121,11 @@
     <orderEntry type="library" name="SBT: net.java.dev.jna:jna-platform:4.1.0" level="project"/>
     <orderEntry type="library" name="SBT: org.slf4j:slf4j-simple:1.7.7" level="project"/>
     <orderEntry type="library" name="SBT: org.slf4j:slf4j-api:1.7.7" level="project"/>
+    <orderEntry type="library" name="SBT: org.apache.poi:poi:3.10.1" level="project"/>
+    <orderEntry type="library" name="SBT: org.apache.poi:poi-ooxml:3.10.1" level="project"/>
+    <orderEntry type="library" name="SBT: org.apache.poi:poi-ooxml-schemas:3.10.1" level="project"/>
+    <orderEntry type="library" name="SBT: org.apache.xmlbeans:xmlbeans:2.6.0" level="project"/>
+    <orderEntry type="library" name="SBT: stax:stax-api:1.0.1" level="project"/>
     <orderEntry scope="TEST" type="library" name="SBT: com.typesafe.play:play-test_2.11:2.3.8:test" level="project"/>
     <orderEntry scope="TEST" type="library" name="SBT: junit:junit:4.11:test" level="project"/>
     <orderEntry scope="TEST" type="library" name="SBT: org.hamcrest:hamcrest-core:1.3:test" level="project"/>

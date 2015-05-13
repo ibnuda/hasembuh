@@ -9,11 +9,14 @@ import forms._
 import models.User
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.{AnyContent, MultipartFormData, Action}
+import java.io.File
 
 import scala.concurrent.Future
-import models.daoapriori.SupKonDAOSlick
+import models.daoapriori.{TransaksiDAOSlick, SupKonDAOSlick}
 
-class ApplicationController @Inject()(implicit val env: Environment[User, SessionAuthenticator])
+class ApplicationController @Inject()(implicit val env: Environment[User, SessionAuthenticator],
+                                      val transaksiDaoSlick: TransaksiDAOSlick
+		)
 	extends Silhouette[User, SessionAuthenticator] {
 
 	val supKonDAOSlick = new SupKonDAOSlick
@@ -70,12 +73,12 @@ class ApplicationController @Inject()(implicit val env: Environment[User, Sessio
 
 	def simpanUpload(): Action[MultipartFormData[TemporaryFile]] = SecuredAction(parse.multipartFormData) { implicit request =>
 		request.body.file("eksel").map { eksel =>
-			import java.io.File
 			val anu = new Eksel
 			val namaFile = eksel.filename
 			eksel.ref.moveTo(new File(s"/tmp/$namaFile"))
-			anu.loadDariBerkas(new File(s"/tmp/$namaFile"))
-			Ok(views.html.home(request.identity))
+			val listTransaksi = anu.loadDariBerkas(new File(s"/tmp/$namaFile"))
+			transaksiDaoSlick.save(listTransaksi)
+			Redirect(routes.TransaksiController.index())
 		}.getOrElse{
 			println("gagal unggah")
 			Redirect(routes.ApplicationController.formUpload())

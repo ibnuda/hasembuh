@@ -4,6 +4,7 @@ import models.DataRule._
 import models.daoapriori.DBTableDefinitions.SetBarang
 import models.daoapriori.TransaksiDAOSlick
 import models.daoapriori.SetBarangDAOSlick
+import models.daoapriori.BarangDAOSlick
 
 class Apriori {
 
@@ -12,13 +13,14 @@ class Apriori {
 	case class KoleksiNDanMinusSatu(besar: List[Int], kecil: List[List[Int]])
 	*/
 
-	val transaksi = new TransaksiDAOSlick
-	val setBarang = new SetBarangDAOSlick
+	val slickTransaksi = new TransaksiDAOSlick
+	val slickSetBarang = new SetBarangDAOSlick
+	val slickBarang = new BarangDAOSlick
 
-	def resetTabel: Int = setBarang.reset
+	def resetTabel: Int = slickSetBarang.reset
 
 	def koleksi1: List[SetBarang] = {
-		val daftar: List[Int] = transaksi.allIDBarangTransaksi.sorted
+		val daftar: List[Int] = slickTransaksi.allIDBarangTransaksi.sorted
 		val daftarKoleksi = {
 			for (daf <- daftar) yield SetBarang(List(daf), 1, daftar.count(_ == daf))
 		}
@@ -26,10 +28,10 @@ class Apriori {
 	}
 
 	def koleksiN(n: Int): List[SetBarang] = {
-		val koleksiNMinusSatu: List[SetBarang] = setBarang.findByKoleksi(n - 1)
-		val koleksinya: List[List[Int]] = generateKoleksi(n, setBarang.listSetBarang(n))
+		val koleksiNMinusSatu: List[SetBarang] = slickSetBarang.findByKoleksi(n - 1)
+		val koleksinya: List[List[Int]] = generateKoleksi(n, slickSetBarang.listSetBarang(n))
 		val koleksiKeN = {
-			for (koleksi <- koleksinya) yield SetBarang(koleksi, n, transaksi.findByList(koleksi))
+			for (koleksi <- koleksinya) yield SetBarang(koleksi, n, slickTransaksi.findByList(koleksi))
 		}
 		koleksiKeN
 	}
@@ -48,13 +50,13 @@ class Apriori {
 		kecil.combinations(koleksi).toList.forall(x => besar.contains(x))
 	}
 
-	def prune(koleksi: Int) = setBarang.prune(koleksi)
+	def prune(koleksi: Int) = slickSetBarang.prune(koleksi)
 
 	def daftarUntukRule: List[KoleksiNDanMinusSatu] = {
-		val dafPunk = if (setBarang.isJamak) {
-			val akhir:Int = setBarang.koleksiFinal
-			val kolFinal: List[SetBarang] = setBarang.lihatKoleksi(akhir)
-			val kolFinalMinusSatu: List[SetBarang] = setBarang.lihatKoleksi(akhir - 1)
+		val dafPunk = if (slickSetBarang.isJamak) {
+			val akhir:Int = slickSetBarang.koleksiFinal
+			val kolFinal: List[SetBarang] = slickSetBarang.lihatKoleksi(akhir)
+			val kolFinalMinusSatu: List[SetBarang] = slickSetBarang.lihatKoleksi(akhir - 1)
 			val daftarKoleksiFinal: List[List[Int]] = for (kf <- kolFinal) yield kf.daftar
 			val daftarKoleksiFinalMinusSatu: List[List[Int]]  = for (kfms <- kolFinalMinusSatu) yield kfms.daftar
 			for (daffinal <- daftarKoleksiFinal)
@@ -68,14 +70,15 @@ class Apriori {
 	def hitungRule(daftar: KoleksiNDanMinusSatu): List[Akhir] = {
 		val rulenya = {
 			val besar = daftar.besar
-			for (kecil <- daftar.kecil) yield Akhir(besar, kecil, hitungKonfidensi(besar, kecil))
+			for (kecil <- daftar.kecil)
+			 yield Akhir(besar, kecil, hitungKonfidensi(besar, kecil))
 		}
 		rulenya
 	}
 
 	def hitungKonfidensi(besar: List[Int], kecil: List[Int]): Double = {
-		val nilaiBesar: Int = setBarang.findSupport(besar)
-		val nilaiKecil: Int = setBarang.findSupport(kecil)
+		val nilaiBesar: Int = slickSetBarang.findSupport(besar)
+		val nilaiKecil: Int = slickSetBarang.findSupport(kecil)
 		val nilai: Double = (nilaiBesar.toDouble / nilaiKecil)
 		nilai
 	}
@@ -85,5 +88,10 @@ class Apriori {
 			for (daf <- daftar) yield hitungRule(daf)
 		}
 		listRule
+	}
+
+	def tampilkanTampilan(daftarSetBarang: List[SetBarang]): List[Tampilkan] = {
+		val ini: List[Tampilkan] = daftarSetBarang.map(x => Tampilkan(slickBarang.listNamaBarang(x.daftar), x.koleksi, x.support))
+		ini
 	}
 }
