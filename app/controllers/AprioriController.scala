@@ -8,8 +8,7 @@ import com.mohiva.play.silhouette.impl.authenticators.SessionAuthenticator
 import models.DataRule.{Akhir2, Akhir, Tampilkan}
 import models.User
 import models.daoapriori.DBTableDefinitions.SetBarang
-import models.daoapriori.SetBarangDAOSlick
-import models.daoapriori.BarangDAOSlick
+import models.daoapriori.{SupKonDAOSlick, SetBarangDAOSlick, BarangDAOSlick}
 import play.api.mvc.{AnyContent, Action}
 
 import scala.concurrent.Future
@@ -18,6 +17,7 @@ class AprioriController @Inject()(implicit val env: Environment[User, SessionAut
 	extends Silhouette[User, SessionAuthenticator] {
 
 	val apriori = new Apriori
+	val slickSupKon = new SupKonDAOSlick
 	val slickSetBarang = new SetBarangDAOSlick
   val slickBarang = new BarangDAOSlick
 
@@ -31,7 +31,8 @@ class AprioriController @Inject()(implicit val env: Environment[User, SessionAut
 
 	def itemset(koleksi: Int): Action[AnyContent] = SecuredAction { implicit request =>
     val simpan: List[SetBarang] = apriori.koleksiN(koleksi)
-		if (simpan.length < 1) {
+		println(slickSupKon.getBundle)
+		if ((simpan.length < 1) || (koleksi > slickSupKon.getBundle)) {
 			Redirect(routes.AprioriController.asosrule())
 		} else {
 			slickSetBarang.save(simpan)

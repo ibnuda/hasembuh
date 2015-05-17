@@ -8,4 +8,5 @@ trait SupKonDAO {
 	def panjang: Int
 	def all: List[SupKon]
 	def delete(sup: Int): Int
+	def getBundle: Int
 }

@@ -39,4 +39,10 @@ class SupKonDAOSlick extends SupKonDAO {
 			slickSupKon.filter(_.support === sup).delete
 		}
 	}
+
+	def getBundle: Int = {
+		DB withSession { implicit sesion =>
+			slickSupKon.first.bundle
+		}
+	}
 }
