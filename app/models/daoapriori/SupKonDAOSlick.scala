@@ -17,7 +17,7 @@ class SupKonDAOSlick extends SupKonDAO {
 
 	def save(supKon: SupKon) = {
 		DB withSession { implicit session =>
-			val inserted = new SupKon(1, supKon.support, supKon.konfidensi)
+			val inserted = new SupKon(1, supKon.bundle, supKon.support, supKon.konfidensi)
 			slickSupKon.insert(inserted)
 		}
 	}

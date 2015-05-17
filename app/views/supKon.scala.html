@@ -6,6 +6,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>Bundle</th>
                     <th>Support</th>
                     <th>Konfidensi</th>
                     <th>Hapus</th>
@@ -14,6 +15,7 @@
             <tbody>
             @for(sup <- supkon) {
                 <tr>
+                    <td>@sup.bundle</td>
                     <td>@sup.support</td>
                     <td>@sup.konfidensi</td>
                     <td>@helper.form(routes.ApplicationController.deleteSupKon(sup.support)){<button class="btn btn-danger" type="submit">Hapus</button>}</td>

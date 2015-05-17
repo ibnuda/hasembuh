@@ -33,17 +33,19 @@ class BarangDAOSlick extends BarangDAO {
 	}
 
 	def save(barang: Barang) = {
-		DB withSession { implicit session =>
-			Future.successful {
-				val inserted = Barang(barang.idbarang, barang.nabarang, barang.habarang)
-				slickBarang.filter(_.idbarang === barang.idbarang).firstOption match {
-					case Some(barangKetemu) =>
-						slickBarang.filter(_.idbarang === barangKetemu.idbarang).update(barangKetemu)
-					case None => slickBarang.insert(barang)
-				}
-				barang
-			}
-		}
+		DB withTransaction  { implicit session =>
+      val inserted = Barang(barang.idbarang, barang.nabarang, barang.habarang)
+      slickBarang.filter(_.idbarang === barang.idbarang).firstOption match {
+        case Some(barangKetemu) =>
+          slickBarang.filter(_.idbarang === barangKetemu.idbarang).update(barangKetemu)
+        case None => slickBarang.insert(barang)
+      }
+      barang
+    }
+	}
+
+	def save(listBarang: List[Barang]) = {
+		for (barang <- listBarang) save(barang)
 	}
 
 	def all = {

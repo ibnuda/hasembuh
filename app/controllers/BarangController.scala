@@ -1,7 +1,9 @@
 package controllers
 
+import java.io.File
 import javax.inject.Inject
 
+import apriori.Eksel
 import com.mohiva.play.silhouette.api.{Environment, Silhouette}
 import com.mohiva.play.silhouette.impl.authenticators.SessionAuthenticator
 import forms.BarangForm
@@ -27,5 +29,22 @@ class BarangController @Inject()(
 
 	def tambah() = SecuredAction { implicit request =>
 		Ok(views.html.tambahBarang(BarangForm.form, request.identity))
+	}
+
+	def upload() = SecuredAction { implicit request =>
+		Ok(views.html.formUploadBarang(request.identity))
+	}
+
+	def simpanUpload() = SecuredAction(parse.multipartFormData) { implicit request =>
+		request.body.file("eksel").map { eksel =>
+			val anu = new Eksel
+			val namaFile = eksel.filename
+			eksel.ref.moveTo(new File(s"/tmp/$namaFile"))
+			val listBarang = anu.berkasToBarang(new File(s"/tmp/$namaFile"))
+			barangdaoslick.save(listBarang)
+			Redirect(routes.BarangController.index())
+		}.getOrElse {
+			Redirect(routes.BarangController.upload)
+		}
 	}
 }

@@ -10,7 +10,8 @@ trait BarangDAO {
 	def find(nama: String): Future[Option[Barang]]
 
 	//def findHarga(harga: Int): Future[Option[Barang]]
-	def save(barang: Barang): Future[Barang]
+	def save(barang: Barang)
+	def save(listBarang: List[Barang])
 
 	def all(): List[Barang]
 	def allNama(): List[(Int, String)]

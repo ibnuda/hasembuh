@@ -1,14 +1,14 @@
-@(daftarRule: List[List[models.DataRule.Akhir]], user: models.User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
+@(daftarRule: List[List[models.DataRule.Akhir2]], user: models.User)(implicit env: com.mohiva.play.silhouette.api.Environment[User, _], request: RequestHeader)
 
 @main("Rule", Some(user)) {
   <div class="container">
-    <h1>Lx: @daftarRule.length </h1>
+    <h1>Jumlah Barang pada Paket: @daftarRule.length </h1>
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Set ini</th>
-          <th>Terhadap ini</th>
-          <th>Konfidensi</th>
+          <th>Kecenderungan pembelian paket</th>
+          <th>setelah membeli paket</th>
+          <th>Adalah</th>
         </tr>
       </thead>
       <tbody>
