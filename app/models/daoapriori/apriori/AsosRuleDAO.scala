@@ -1,6 +1,6 @@
-package models.daoapriori
+package models.daoapriori.apriori
 
-import models.daoapriori.DBTableDefinitions.AsosRule
+import models.DataRule.AsosRule
 
 trait AsosRuleDAO {
   def save(asosRule: AsosRule)

@@ -1,6 +1,6 @@
 package models.daoapriori
 
-import models.daoapriori.DBTableDefinitions.SupKon
+import models.DataRule.SupKon
 
 trait SupKonDAO {
 	def minimumSupport: Int

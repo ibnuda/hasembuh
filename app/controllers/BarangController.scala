@@ -8,7 +8,7 @@ import com.mohiva.play.silhouette.api.{Environment, Silhouette}
 import com.mohiva.play.silhouette.impl.authenticators.SessionAuthenticator
 import forms.BarangForm
 import models.User
-import models.daoapriori.BarangDAOSlick
+import models.daoapriori.barang.BarangDAOSlick
 
 import scala.concurrent.Future
 

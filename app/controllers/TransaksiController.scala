@@ -8,9 +8,9 @@ import com.mohiva.play.silhouette.api.{Silhouette, Environment}
 import com.mohiva.play.silhouette.impl.authenticators.SessionAuthenticator
 import forms.TransaksiForm
 import models.User
-import models.daoapriori.DBTableDefinitions.Transaksi
-import models.daoapriori.TransaksiDAOSlick
-import models.daoapriori.BarangDAOSlick
+import models.DataRule.Transaksi
+import models.daoapriori.barang.BarangDAOSlick
+import models.daoapriori.transaksi.TransaksiDAOSlick
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.{MultipartFormData, AnyContent, Action}
 

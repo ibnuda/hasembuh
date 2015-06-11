@@ -1,7 +1,8 @@
-package models.daoapriori
+package models.daoapriori.transaksi
 
-import play.api.db.slick.Config.driver.simple._
+import models.DataRule.Transaksi
 import models.daoapriori.DBTableDefinitions._
+import play.api.db.slick.Config.driver.simple._
 import play.api.db.slick._
 
 import scala.concurrent.Future

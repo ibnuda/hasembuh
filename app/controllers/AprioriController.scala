@@ -7,11 +7,11 @@ import com.mohiva.play.silhouette.api.{Silhouette, Environment}
 import com.mohiva.play.silhouette.impl.authenticators.SessionAuthenticator
 import models.DataRule.{Akhir2, Akhir, Tampilkan}
 import models.User
-import models.daoapriori.DBTableDefinitions.SetBarang
-import models.daoapriori.{SupKonDAOSlick, SetBarangDAOSlick, BarangDAOSlick}
+import models.DataRule.SetBarang
+import models.daoapriori.apriori.SetBarangDAOSlick
+import models.daoapriori.barang.BarangDAOSlick
+import models.daoapriori.SupKonDAOSlick
 import play.api.mvc.{AnyContent, Action}
-
-import scala.concurrent.Future
 
 class AprioriController @Inject()(implicit val env: Environment[User, SessionAuthenticator])
 	extends Silhouette[User, SessionAuthenticator] {

@@ -2,18 +2,16 @@ package controllers
 
 import javax.inject.Inject
 
-import apriori.Eksel
 import com.mohiva.play.silhouette.api.{Environment, LogoutEvent, Silhouette}
 import com.mohiva.play.silhouette.impl.authenticators.SessionAuthenticator
 import forms._
 import models.User
-import models.daoapriori.DBTableDefinitions.{Transaksi, SupKon}
-import play.api.libs.Files.TemporaryFile
-import play.api.mvc.{AnyContent, MultipartFormData, Action}
-import java.io.File
+import models.DataRule.SupKon
+import models.daoapriori.transaksi.TransaksiDAOSlick
+import play.api.mvc.{AnyContent, Action}
 
 import scala.concurrent.Future
-import models.daoapriori.{TransaksiDAOSlick, SupKonDAOSlick}
+import models.daoapriori.SupKonDAOSlick
 
 class ApplicationController @Inject()(implicit val env: Environment[User, SessionAuthenticator],
                                       val transaksiDaoSlick: TransaksiDAOSlick )

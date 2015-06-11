@@ -2,7 +2,7 @@ package apriori
 
 import java.io.{File, FileInputStream}
 
-import models.daoapriori.DBTableDefinitions.{Barang, Transaksi}
+import models.DataRule.{Barang, Transaksi}
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.ss.usermodel._
 import org.apache.poi.xssf.usermodel.XSSFWorkbook

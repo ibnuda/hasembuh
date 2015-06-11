@@ -1,6 +1,6 @@
 package forms
 
-import models.daoapriori.DBTableDefinitions.SupKon
+import models.DataRule.SupKon
 import play.api.data.format.Formats._
 import play.api.data.Form
 import play.api.data.Forms._

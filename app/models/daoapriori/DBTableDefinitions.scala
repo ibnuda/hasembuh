@@ -1,5 +1,6 @@
 package models.daoapriori
 
+import models.DataRule._
 import play.api.db.slick.DB
 import models.MyPostgresDriver.simple._
 
@@ -13,6 +14,7 @@ object DBTableDefinitions {
 	val slickAsosRule = TableQuery[DBAsosRule]
 	val slickSupKon = TableQuery[DBSupKon]
 
+	/*
 	case class Barang(idbarang: Int, nabarang: String, habarang: Int)
 
 	case class Transaksi(no: Int, idtrans: Int, idbarang: Int)
@@ -22,6 +24,7 @@ object DBTableDefinitions {
 	case class AsosRule(daftar: List[Int], rule: Map[String, String], konfidensi: Double)
 
 	case class SupKon(id: Int, bundle: Int, support: Int, konfidensi: Double)
+	*/
 
 	class DBBarang(tag: Tag) extends Table[Barang](tag, "barang") {
 		def idbarang: Column[Int] = column[Int]("idbarang", O.PrimaryKey, O.AutoInc)

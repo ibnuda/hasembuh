@@ -1,8 +1,10 @@
-package models.daoapriori
+package models.daoapriori.apriori
 
-import models.daoapriori.DBTableDefinitions._
-import play.api.db.slick._
 import models.MyPostgresDriver.simple._
+import models.DataRule.SetBarang
+import models.daoapriori.DBTableDefinitions._
+import models.daoapriori.SupKonDAOSlick
+import play.api.db.slick._
 
 import scala.concurrent.Future
 

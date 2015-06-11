@@ -1,10 +1,9 @@
 package apriori
 
 import models.DataRule._
-import models.daoapriori.DBTableDefinitions.SetBarang
-import models.daoapriori.TransaksiDAOSlick
-import models.daoapriori.SetBarangDAOSlick
-import models.daoapriori.BarangDAOSlick
+import models.daoapriori.apriori.SetBarangDAOSlick
+import models.daoapriori.barang.BarangDAOSlick
+import models.daoapriori.transaksi.TransaksiDAOSlick
 
 class Apriori {
 

@@ -1,8 +1,9 @@
-package models.daoapriori
+package models.daoapriori.apriori
 
-import play.api.db.slick._
+import models.DataRule.AsosRule
+import models.daoapriori.DBTableDefinitions.slickAsosRule
 import play.api.db.slick.Config.driver.simple._
-import models.daoapriori.DBTableDefinitions.{AsosRule, slickAsosRule}
+import play.api.db.slick._
 
 /**
  * Created by mel on 5/17/15.

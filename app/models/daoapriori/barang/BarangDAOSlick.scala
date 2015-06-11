@@ -1,5 +1,6 @@
-package models.daoapriori
+package models.daoapriori.barang
 
+import models.DataRule.Barang
 import models.daoapriori.DBTableDefinitions._
 import play.api.db.slick.Config.driver.simple._
 import play.api.db.slick._

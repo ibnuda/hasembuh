@@ -1,6 +1,6 @@
 package forms
 
-import models.daoapriori.DBTableDefinitions.Transaksi
+import models.DataRule.Transaksi
 import play.api.data.Form
 import play.api.data.Forms._
 

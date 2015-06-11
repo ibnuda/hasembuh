@@ -53,5 +53,6 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
 	.setPreference(DoubleIndentClassDeclaration, false)
 	.setPreference(PreserveDanglingCloseParenthesis, true)
 
+doc in Compile <<= target.map(_ / "none")
 
 //fork in run := true

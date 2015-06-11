@@ -1,7 +1,7 @@
 package models.daoapriori
 
 import models.MyPostgresDriver.simple._
-import models.daoapriori.DBTableDefinitions.SupKon
+import models.DataRule.SupKon
 import models.daoapriori.DBTableDefinitions.slickSupKon
 import play.api.db.slick._
 
