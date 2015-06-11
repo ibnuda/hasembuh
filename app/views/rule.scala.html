@@ -6,18 +6,18 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Kecenderungan pembelian paket</th>
+          <th>Kecenderungan pembelian barang</th>
           <th>setelah membeli paket</th>
-          <th>Adalah</th>
+          <th>adalah</th>
         </tr>
       </thead>
       <tbody>
       @for(rule <- daftarRule) {
         @for(rul <- rule){
           <tr>
-            <td>( @rul.besar )</td>
+            <td>( @rul.besar.split(", ").filterNot(rul.kecil.split(", ").contains(_)).mkString(",") )</td>
             <td>( @rul.kecil )</td>
-            <td>@rul.konfidensi</td>
+            <td>@rul.konfidensi %</td>
           </tr>
         }
       }
